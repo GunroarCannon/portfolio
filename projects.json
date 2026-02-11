@@ -1,0 +1,577 @@
+{
+    "art":[
+  {
+    "id": 1,
+    "title": "Sketch Dragon",
+    "thumbnailUrl": "./assets/sketch_dragon.png",
+    "description": "Loose pencil sketch of a dragon, showing rough motion and flow lines.",
+    "tags": [
+      "Sketch",
+      "WIP"
+    ],
+    "tier": 0
+  },
+  {
+    "id": 2,
+    "title": "Ad Comic",
+    "thumbnailUrl": "./assets/ad_comic.png",
+    "description": "Mini comic styled like an ad — bold composition and expressive characters.",
+    "tags": [
+      "Comic"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 3,
+    "title": "Animation Panel",
+    "thumbnailUrl": "./assets/animation.png",
+    "description": "Frame-by-frame sequence experiment exploring smooth gesture animation.",
+    "tags": [
+      "Animation",
+      "Experimental",
+      "Complex"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 4,
+    "title": "Dogo Stonks",
+    "thumbnailUrl": "./assets/avatar.png",
+    "description": "Only here for business and gentle head pats.",
+    "tags": [
+      "Portrait"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 5,
+    "title": "Bluey Comic",
+    "thumbnailUrl": "./assets/bluey_comic.png",
+    "description": "A comedic short comic inspired by one of the best kids shows.",
+    "tags": [
+      "Comic"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 6,
+    "title": "Cabin PNG",
+    "thumbnailUrl": "./assets/cabin.png",
+    "description": "A cozy cabin illustration, warm tones and autumn mood.",
+    "tags": [
+      "Environment",
+      "Digital Painting"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 7,
+    "title": "Coooool dude",
+    "thumbnailUrl": "./assets/commission_to_be.png",
+    "description": "Art showing color layout and sketch planning.",
+    "tags": [
+      "WIP",
+      "Character Design"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 8,
+    "title": "Frog Samurai",
+    "thumbnailUrl": "./assets/complex-art.jpg",
+    "description": "Full blown comic page",
+    "tags": [
+      "Illustration",
+      "Complex",
+      "Comic",
+      "Action"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 9,
+    "title": "Dust: Battle Beneath",
+    "thumbnailUrl": "./assets/custom.png",
+    "description": "Art done for an old game of mine.",
+    "tags": [
+      "Illustration",
+      "Complex",
+      "Action"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 10,
+    "title": "The Defect STS",
+    "thumbnailUrl": "./assets/defect_sts.png",
+    "description": "Fanart for a character from famous indie game, Slay the Spire.",
+    "tags": [
+      "Experimental",
+      "Character Design",
+      "Action"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 11,
+    "title": "Dust Simple Art",
+    "thumbnailUrl": "./assets/dust_simple_art.png",
+    "description": "Minimalist warm-tone illustration — dust particles and light reflections.",
+    "tags": [
+      "Experimental",
+      "Stylized"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 12,
+    "title": "Elk Hunt",
+    "thumbnailUrl": "./assets/elkhunt.png",
+    "description": "Dynamic hunter scene. Or hunted scene more like.",
+    "tags": [
+      "Action",
+      "Illustration",
+      "Comic"
+    ],
+    "tier": 0
+  },
+  {
+    "id": 13,
+    "title": "For Someone",
+    "thumbnailUrl": "./assets/for_someone.png",
+    "description": "Chill character portrait — gift art showing introspective mood.",
+    "tags": [
+      "Portrait"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 14,
+    "title": "Goat PNG",
+    "thumbnailUrl": "./assets/goat.png",
+    "description": "Stylized anthropomorphic goat with cool color tones and strong silhouette.",
+    "tags": [
+      "Character Design"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 15,
+    "title": "Hand Drawn JPG",
+    "thumbnailUrl": "./assets/handdrawn.jpg",
+    "description": "Purely traditional pencil sketch showing raw line quality.",
+    "tags": [
+      "Sketch",
+      "Traditional",
+      "Complex"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 16,
+    "title": "Lion Art",
+    "thumbnailUrl": "./assets/lion_art.png",
+    "description": "Majestic lion portrait with bold brushstrokes and fiery mane.",
+    "tags": [
+      "Animal",
+      "Digital Painting",
+      "Character Design",
+      "Complex"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 17,
+    "title": "Manga PNG",
+    "thumbnailUrl": "./assets/manga.png",
+    "description": "Short manga scene, yo! strong tones, impactful framing.",
+    "tags": [
+      "Manga",
+      "Comic",
+      "Complex"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 18,
+    "title": "Manga In Progress",
+    "thumbnailUrl": "./assets/manga_in_progress.png",
+    "description": "Work-in-progress manga panel layout with early linework.",
+    "tags": [
+      "Manga",
+      "WIP"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 19,
+    "title": "Medium Art",
+    "thumbnailUrl": "./assets/medium-art.png",
+    "description": "Stylized portrait experiment blending digital and traditional feels.",
+    "tags": [
+      "Portrait",
+      "Stylized"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 20,
+    "title": "Megalovania Moonlight",
+    "thumbnailUrl": "./assets/megalovania_moonlight.png",
+    "description": "Art inspired by Megalovania — moonlit colors, bold energy.",
+    "tags": [
+      "Stylized"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 21,
+    "title": "Monke",
+    "thumbnailUrl": "./assets/monke.png",
+    "description": "Comedic monkey character study, heavy line art style.",
+    "tags": [
+      "Character Design"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 22,
+    "title": "President Comic",
+    "thumbnailUrl": "./assets/president_comic.png",
+    "description": "Short political comic with satirical overtones.",
+    "tags": [
+      "Comic"
+    ],
+    "tier": 0
+  },
+  {
+    "id": 23,
+    "title": "Ragdollman Girl",
+    "thumbnailUrl": "./assets/ragdollman_girl.png",
+    "description": "Comic page featuring a villain from my comic Ragdollman, expressive story tone.",
+    "tags": [
+      "Comic",
+      "Digital Painting"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 24,
+    "title": "Ragdollman Stones",
+    "thumbnailUrl": "./assets/ragdollman_stones.png",
+    "description": "Comic about power and burden.",
+    "tags": [
+      "Manga"
+    ],
+    "tier": 0
+  },
+  {
+    "id": 25,
+    "title": "Ragdollman Train",
+    "thumbnailUrl": "./assets/ragdollman_train.png",
+    "description": "Fast-paced action comic panel — motion blur and tension.",
+    "tags": [
+      "Action",
+      "Comic"
+    ],
+    "tier": 0
+  },
+  {
+    "id": 26,
+    "title": "Rem Psycho",
+    "thumbnailUrl": "./assets/rem_psycho.png",
+    "description": "Surreal portrait with psychedelic energy — dreamlike patterns.",
+    "tags": [
+      "Experimental",
+      "Portrait"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 27,
+    "title": "Spheron Girl",
+    "thumbnailUrl": "./assets/spheron_girl.png",
+    "description": "Soft portrait with curved perspective and saturated tones.",
+    "tags": [
+      "Portrait"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 28,
+    "title": "Staking Comic",
+    "thumbnailUrl": "./assets/staking_comic.png",
+    "description": "Short comic about staking and patience — witty and expressive.",
+    "tags": [
+      "Comic"
+    ],
+    "tier": 1
+  },
+  {
+    "id": 29,
+    "title": "Trad Art",
+    "thumbnailUrl": "./assets/trad_art.png",
+    "description": "Traditional drawing scanned — visible pencil texture and tones.",
+    "tags": [
+      "Traditional",
+      "Sketch",
+      "Action"
+    ],
+    "tier": 0
+  },
+  {
+    "id": 30,
+    "title": "Work In Progress",
+    "thumbnailUrl": "./assets/work_in_progress.png",
+    "description": "Digital Frog Samurai comic still in progress — visible layers and linework.",
+    "tags": [
+      "WIP"
+    ],
+    "tier": 2
+  },
+  {
+    "id": 31,
+    "title": "Work In Progress 2",
+    "thumbnailUrl": "./assets/work_in_progress_2.png",
+    "description": "Alternate stage of same comic, showing refinement.",
+    "tags": [
+      "WIP"
+    ],
+    "tier": 1
+  }
+],
+    "games": [
+      {
+        "url": "https://hmmmgames.itch.io/cards-of-loop-sonic-svm",
+        "description": "A rhythm-based card game with Sonic aesthetics.",
+        "fallback": {
+          "title": "Cards of Loop: Sonic SVM",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Experimental",
+          "Sketch",
+          "Solana",
+          "Stylized",
+          "Backend"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/pigcrawl",
+        "description": "Roguelike dungeon crawler with pig warriors.",
+        "fallback": {
+          "title": "Pigcrawl",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Complex"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/rem-psyche",
+        "description": "Psychological horror adventure game.",
+        "fallback": {
+          "title": "Rem Psycho",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Experimental",
+          "Stylized",
+          "Fast"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/madcrawl",
+        "description": "Fast-paced action roguelike.",
+        "fallback": {
+          "title": "Madcrawl",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Experimental",
+          "Complex"
+        ]
+      },
+      {
+        "url": "https://gunroar.itch.io/coursegame",
+        "description": "Be the course rep or die trying.",
+        "fallback": {
+          "title": "Course Rep 101",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Simple",
+          "Backend"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/course-rep-101-h",
+        "description": "Honey Protocol version. Be the course rep or die trying.",
+        "fallback": {
+          "title": "Course Rep 101 Honeycomb",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Experimental",
+          "Simple",
+          "Solana",
+          "Backend"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/coingame",
+        "description": "Minimalist coin collection game.",
+        "fallback": {
+          "title": "Coingame",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Stylized",
+          "Simple"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/ironquiz",
+        "description": "Trivia game with ironclad questions.",
+        "fallback": {
+          "title": "Ironquiz",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Game Jam",
+          "Simple",
+          "Stylized"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/pig-jig",
+        "description": "Musical pig dancing game.",
+        "fallback": {
+          "title": "Pig Jig",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Experimental",
+          "Simple",
+          "Game Jam"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/dust-bb",
+        "description": "Post-apocalyptic basketball game.",
+        "fallback": {
+          "title": "Dust BB",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Complex",
+          "Multiplayer",
+          "Fast"
+        ]
+      },
+      {
+        "url": "https://hmmmgames.itch.io/dragon",
+        "description": "Dragon artistic platformer.",
+        "fallback": {
+          "title": "Dragon Game",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Experimental",
+          "Simple",
+          "Fast"
+        ]
+      },
+      {
+        "url": "https://gunroar.itch.io/loop",
+        "description": "Minimalist infinite runner.",
+        "fallback": {
+          "title": "LOOP",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Simple"
+        ]
+      },
+      {
+        "url": "https://gunroar.itch.io/unicorn",
+        "description": "A platforming roguelike with a bloody cartoon theme.",
+        "fallback": {
+          "title": "Unicorn Blood Sacrifice",
+          "image": "assets/game-placeholder.jpg"
+        },
+        "tags": [
+          "Stylized",
+          "Sketch",
+          "Fast"
+        ]
+      }
+    ],
+    "programs": [
+      {
+        "url": "https://ugochime.onrender.com/",
+        "description": "A rough 3D desk display of this portfolio.",
+        "fallback": {
+          "title": "3D Desk Display",
+          "image": "assets/web-placeholder.jpg"
+        },
+        "tags": [
+          "Website",
+          "3D"
+        ]
+      },
+      {
+        "url":"https://github.com/GunroarCannon/Ecommerce-streamlit-app",
+        "description": "A simple ecommerce dashboard built with Streamlit.",
+        "fallback": {
+          "title": "ecommerce",
+          "image": "ecommerce_eql_dashboard.jpg"
+        },
+        "tags": [
+          "Complex",
+          "Python"
+        ]
+      },
+      
+
+      {
+        "url": "https://hmmmarts.vercel.app/",
+        "description": "An art commission website.",
+        "fallback": {
+          "title": "Hmmm Arts",
+          "image": "assets/web-placeholder.jpg"
+        },
+        "tags": [
+          "Website",
+          "Simple"
+        ]
+      },
+      
+      {
+        "url":"https://github.com/GunroarCannon/yahoo-finance-visualization-test",
+        "description": "A simple visualization of Yahoo Finance data.",
+        "fallback": {
+          "title": "Yfinance",
+          "image": "yfinance.png"
+        },
+        "tags": [
+          "Complex",
+          "Python"
+        ]
+      },
+
+      {
+        "url": "https://futo-chatbot-server.onrender.com/",
+        "description": "AI chatbot with custom responses.",
+        "fallback": {
+          "title": "Futo Chatbot",
+          "image": "futobot.png"
+        },
+        "tags": [
+          "AI",
+          "Website",
+          "Backend"
+        ]
+      }
+    ]
+  }

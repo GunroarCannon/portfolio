@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ugo Chime | Project Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Courier+New&display=swap">
+    <style>
+        :root {
+            --bg-dark: #0a0a1a;
+            --bg-panel: rgba(10, 20, 25, 0.8);
+            --neon-green: #00ff99;
+            --neon-blue: #00ccff;
+            --text-main: #e0e0e0;
+            --text-muted: #8fa5a5;
+            --font-main: 'Inter', sans-serif;
+            --font-code: 'Courier New', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Tactical Background */
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(0, 255, 153, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 153, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px; z-index: -1;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        /* Header & Navigation */
+        header { 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 153, 0.2); padding-bottom: 1rem;
+            margin-bottom: 3rem;
+        }
+        .logo { font-family: var(--font-code); color: var(--neon-green); font-weight: bold; text-decoration: none; }
+
+        /* Filter System */
+        .filter-container { 
+            margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 10px; 
+            padding: 1rem; background: rgba(0, 255, 153, 0.05); border-left: 3px solid var(--neon-green);
+        }
+        .filter-btn {
+            background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);
+            padding: 5px 15px; cursor: pointer; font-family: var(--font-code); font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover { border-color: var(--neon-green); color: var(--neon-green); background: rgba(0, 255, 153, 0.1); }
+
+        /* Sections */
+        section { margin-bottom: 5rem; }
+        .section-title { 
+            font-family: var(--font-code); color: var(--neon-green); 
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2rem;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .section-title::after { content: ""; flex: 1; height: 1px; background: rgba(0, 255, 153, 0.2); }
+
+        /* Responsive Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Modular Cards */
+        .card {
+            background: var(--bg-panel); border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s; position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .card:hover { border-color: var(--neon-green); transform: translateY(-5px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.8; transition: 0.3s; }
+        .card:hover img { opacity: 1; }
+        
+        .card-content { padding: 1.5rem; flex-grow: 1; }
+        .card-content h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: white; }
+        .card-content p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+        
+        .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1rem; }
+        .tag { font-size: 0.65rem; padding: 2px 8px; border: 1px solid var(--neon-green); color: var(--neon-green); text-transform: uppercase; }
+
+        .btn-visit { 
+            font-family: var(--font-code); font-size: 0.8rem; color: var(--neon-green); 
+            text-decoration: none; border-top: 1px solid rgba(0,255,153,0.1); 
+            display: block; padding: 10px 0; text-align: center;
+        }
+        .btn-visit:hover { background: rgba(0, 255, 153, 0.1); }
+.clickable-tag {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 10; /* Ensures it sits above card click area */
+}
+
+.clickable-tag:hover {
+    background: var(--neon-green);
+    color: var(--bg-dark);
+    box-shadow: 0 0 10px var(--neon-green);
+    border-color: var(--neon-green);
+}
+        /* Lightbox (Art Only) */
+        #lightbox {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            display: none; justify-content: center; align-items: center; z-index: 1000; padding: 2rem;
+        }
+        #lightbox.active { display: flex; }
+        .lightbox-content { max-width: 900px; width: 100%; display: grid; grid-template-columns: 1fr 300px; gap: 20px; background: var(--bg-dark); border: 1px solid var(--neon-green); }
+        #lightboxImage { width: 100%; height: auto; border-right: 1px solid rgba(0,255,153,0.2); }
+        .lightbox-info { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .lightbox-content { grid-template-columns: 1fr; overflow-y: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="index.html" class="logo"> < RETURN_TO_SYSTEM</a>
+        <div id="status">STATUS: DEPLOYED</div>
+    </header>
+
+    <div class="filter-container" id="galleryFilters">
+        </div>
+
+    <section>
+        <h2 class="section-title">01. DEPLOYED_SYSTEMS</h2>
+        <div class="grid" id="programs-container"></div>
+    </section>
+
+    <section>
+        <h2 class="section-title">02. INTERACTIVE_ENVIRONMENTS</h2>
+        <div class="grid" id="games-container"></div>
+    </section>
+
+    <section>
+        <h2 class="section-title">03. VISUAL_ARTIFACTS</h2>
+        <div class="grid" id="art-container"></div>
+    </section>
+</div>
+
+<div id="lightbox">
+    <div class="lightbox-content">
+        <img id="lightboxImage" src="" alt="">
+        <div class="lightbox-info">
+            <h3 id="lightboxTitle" style="color:var(--neon-green)"></h3>
+            <p id="lightboxDescription" style="font-size:0.9rem"></p>
+            <div id="lightboxTags" class="card-tags"></div>
+            <button onclick="closeLightbox()" class="filter-btn">CLOSE_VIEW</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_URL = "https://link-previewer-efsv.onrender.com/preview?url=";
+    const FALLBACK_IMAGE = "https://via.placeholder.com/400x200?text=System_Offline";
+    let staticPreviews = {};
+    let allWorks = []; // For filtering
+
+    // Tier list mapping
+    const tierList = [
+        "doodles",
+        "intermediate",
+        "artsy"
+    ]//["Doodle Dash", "Brush Wave", "Canvas Burst"];
+
+    async function initialize() {
+        await loadStaticPreviews();
+        await loadProjectData();
+    }
+
+    async function loadStaticPreviews() {
+        try {
+            const res = await fetch('preview.json');
+            staticPreviews = res.ok ? await res.json() : {};
+        } catch (e) { console.error("Preview data missing"); }
+    }
+
+    async function loadProjectData() {
+        try {
+            const res = await fetch('projects.json');
+            const data = await res.json();
+            
+            // Render each section
+            renderSection('programs', data.programs);
+            renderSection('games', data.games);
+            renderArtSection(data.art || []);
+
+            generateFilters([
+                ...([{tags:["all_files"]}]), ...data.programs,
+                ...data.games, ...(data.art || []), ...([{tags:[...tierList]}])
+            ]);
+        } catch (e) { console.error("Projects data missing", e); }
+    }
+function renderSection(id, projects) {
+    const container = document.getElementById(`${id}-container`);
+    if (!container) return;
+
+    projects.forEach(proj => {
+        // Prepare the preview data
+        const preview = staticPreviews[proj.url] || {
+            title: proj.title || "Unknown Project",
+            description: proj.description || "Data redacted.",
+            image: FALLBACK_IMAGE,
+            url: proj.url
+        };
+
+        preview.title = proj.title || preview.title || "Unknown Project";
+        preview.description = proj.description || preview.description || "Data redacted.";
+
+        // Pass the tags from projects.json/data to the card creator
+        const projectTags = proj.tags || [];
+        projectTags.push(id); // Add section ID as a tag for filtering (e.g., "programs", "games")
+        const card = createCard(preview, projectTags);
+        
+        // Ensure the card has a data attribute for the filter function to read
+        card.setAttribute('data-tags', projectTags.join(','));
+        
+        container.appendChild(card);
+        
+        // Async background refresh for missing preview data
+        if(!staticPreviews[proj.url]) {
+            refreshCard(proj.url, card);
+        }
+    });
+}
+function createCard(data, tags) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    // Convert tags to a string for the data attribute (for the filtering logic)
+    card.setAttribute('data-tags', tags.join(',').toLowerCase());
+    
+    card.innerHTML = `
+        <img src="${data.image}" alt="${data.title}" onerror="this.src='${FALLBACK_IMAGE}'">
+        <div class="card-content">
+            <h3>${data.title}</h3>
+            <p>${data.description}</p>
+            <div class="card-tags">
+                ${tags.map(t => `
+                    <span class="tag clickable-tag" 
+                          onclick="handleTagClick(event, '${t}')">
+                        ${t}
+                    </span>`).join('')}
+            </div>
+        </div>
+        <a href="${data.url}" target="_blank" class="btn-visit">OPEN_LINK →</a>
+    `;
+    return card;
+}
+
+function handleTagClick(event, tag) {
+    // Prevent the card's onclick (like the Lightbox) from firing
+    event.stopPropagation();
+    
+    // 1. Find the corresponding button in the top filter bar
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let foundMatch = false;
+
+    filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        const attr = btn.getAttribute('data-filter');
+        if (attr && attr.toLowerCase() === tag.toLowerCase()) {
+            btn.classList.add('active');
+            foundMatch = true;
+        }
+    });
+
+    // 2. If the tag isn't in the top bar yet (e.g. rare tags), 
+    // we still run the filter logic
+    filterGrid(tag);
+    
+    // 3. Optional: Scroll back to top so user sees the filtered results
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+    // Special handler for Art (Click to Lightbox)
+    function renderArtSection(arts) {
+    const container = document.getElementById('art-container');
+    
+    arts.forEach(art => {
+        // Create the card element
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // Include the tier in the searchable tags
+        const fullTags = [...art.tags, tierList[art.tier] || `Tier ${art.tier}`];
+        card.setAttribute('data-tags', fullTags.join(','));
+
+        card.innerHTML = `
+            <img src="${art.thumbnailUrl}" alt="${art.title}" style="cursor:zoom-in" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Missing'">
+            <div class="card-content">
+                <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3>${art.title}</h3>
+                    <span class="tier-label" style="font-size:0.7rem; color:var(--neon-blue); font-family:var(--font-code)">[${tierList[art.tier] || art.tier}]</span>
+                </div>
+            <div class="card-tags">
+                ${fullTags.map(t => `
+                    <span class="tag clickable-tag" 
+                          onclick="handleTagClick(event, '${t}')">
+                        ${t}
+                    </span>`).join('')}
+            </div>
+                </div>
+        `;
+
+        // Pass the entire 'art' object to openLightbox so it can use art.description and art.tier
+        card.onclick = () => openLightbox(art);
+        
+        container.appendChild(card);
+    });
+}
+
+    function openLightbox(art) {
+        document.getElementById('lightboxImage').src = art.thumbnailUrl;
+        document.getElementById('lightboxTitle').innerText = art.title;
+        document.getElementById('lightboxDescription').innerText = art.description;
+        document.getElementById('lightbox').classList.add('active');
+    }
+
+    function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+
+    function generateFilters(items) {
+        const tags = [...new Set(items.flatMap(i => i.tags || []))];
+        const container = document.getElementById('galleryFilters');
+        tags.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.innerText = tag.toUpperCase();
+            btn.onclick = () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterGrid(tag);
+            };
+            container.appendChild(btn);
+        });
+        tags[0] && container.querySelector(`.filter-btn:nth-child(1)`).classList.add('active'); // Activate first filter by default
+    }
+
+    function filterGrid(tag) {
+    // 1. Filter the individual cards
+    document.querySelectorAll('.card').forEach(card => {
+        const cardTags = card.getAttribute('data-tags').split(','); 
+        const isMatch = (tag === 'all_files' || cardTags.includes(tag));
+        card.style.display = isMatch ? 'flex' : 'none';
+    });
+
+    // 2. Filter the sections (Hide section if it has 0 visible cards)
+    document.querySelectorAll('section').forEach(section => {
+        // Check if there is at least one card with display: flex inside this section
+        const visibleCards = section.querySelectorAll('.card[style*="display: flex"]');
+        
+        if (visibleCards.length === 0) {
+            section.style.display = 'none'; // Hide the whole section
+        } else {
+            section.style.display = 'block'; // Show it
+        }
+    });
+}
+
+    async function refreshCard(url, cardElement) {
+        try {
+            const res = await fetch(API_URL + encodeURIComponent(url));
+            const data = await res.json();
+            if(data.image) cardElement.querySelector('img').src = data.image;
+        } catch(e) {}
+    }
+
+    document.addEventListener('DOMContentLoaded', initialize);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Radar Scanner</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: 
+        linear-gradient(135deg, #0a0a1a 25%, #0f1a1f 100%),
+        repeating-linear-gradient(45deg, transparent 0px, transparent 1px, rgba(0, 30, 40, 0.3) 2px, transparent 3px);
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Grid Background */
+    .grid-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 153, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 153, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+      animation: gridPulse 10s infinite alternate;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    /* Container for radar and controls */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Radar Main Circle */
+    .radar {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      position: relative;
+      background: 
+        radial-gradient(
+          circle at center,
+          rgba(0, 255, 153, 0.1) 0%,
+          rgba(0, 255, 153, 0.05) 25%,
+          transparent 70%
+        );
+      border: 3px solid rgba(0, 255, 153, 0.7);
+      overflow: hidden;
+      box-shadow: 
+        0 0 40px rgba(0, 255, 153, 0.3),
+        inset 0 0 60px rgba(0, 255, 153, 0.1);
+      animation: radarGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes radarGlow {
+      0% { box-shadow: 0 0 30px rgba(0, 255, 153, 0.2), inset 0 0 50px rgba(0, 255, 153, 0.05); }
+      100% { box-shadow: 0 0 60px rgba(0, 255, 153, 0.4), inset 0 0 80px rgba(0, 255, 153, 0.15); }
+    }
+
+    /* Circular Grid Lines */
+    .radar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-radial-gradient(
+          circle,
+          rgba(0, 255, 153, 0.2) 0px,
+          rgba(0, 255, 153, 0.2) 1px,
+          transparent 2px,
+          transparent 25px
+        ),
+        repeating-radial-gradient(
+          circle,
+          transparent 0px,
+          transparent 49px,
+          rgba(0, 255, 153, 0.15) 50px,
+          transparent 51px
+        ),
+        repeating-conic-gradient(
+          from 0deg,
+          rgba(0, 255, 153, 0.1) 0deg,
+          transparent 15deg,
+          rgba(0, 255, 153, 0.1) 30deg,
+          transparent 45deg
+        );
+    }
+
+    /* Crosshair */
+    .crosshair {
+      position: absolute;
+      inset: 0;
+    }
+
+    .crosshair::before,
+    .crosshair::after {
+      content: "";
+      position: absolute;
+      background: rgba(0, 255, 153, 0.3);
+    }
+
+    .crosshair::before {
+      width: 100%;
+      height: 1px;
+      top: 50%;
+      left: 0;
+    }
+
+    .crosshair::after {
+      width: 1px;
+      height: 100%;
+      top: 0;
+      left: 50%;
+    }
+
+    /* Sweep Arm */
+    .sweep {
+      position: absolute;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        rgba(0, 255, 153, 0) 0%,
+        rgba(0, 255, 153, 0.8) 15%,
+        #00ff99 50%,
+        rgba(0, 255, 153, 0.8) 85%,
+        rgba(0, 255, 153, 0) 100%
+      );
+      top: 50%;
+      left: 50%;
+      transform-origin: left center;
+      animation: rotate 3s linear infinite;
+      filter: drop-shadow(0 0 10px #00ff99);
+    }
+
+    /* Sweep Glow Cone */
+    .sweep::after {
+      content: "";
+      position: absolute;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent,
+        rgba(0, 255, 153, 0.15)
+      );
+      filter: blur(10px);
+    }
+
+    /* Rotation Animation */
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Center Dot */
+    .center-dot {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: radial-gradient(circle, #00ff99 30%, rgba(0, 255, 153, 0.3) 70%);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px #00ff99;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    /* Blips (Radar Contacts) */
+    .blip {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, #ff3366 30%, rgba(255, 51, 102, 0.5) 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: blipPulse 1.5s infinite;
+      filter: drop-shadow(0 0 8px #ff3366);
+    }
+
+    @keyframes blipPulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    /* Range Rings */
+    .range-ring {
+      position: absolute;
+      border: 1px solid rgba(0, 255, 153, 0.2);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .range-ring:nth-child(1) { width: 60%; height: 60%; }
+    .range-ring:nth-child(2) { width: 80%; height: 80%; }
+    .range-ring:nth-child(3) { width: 95%; height: 95%; }
+
+    /* Control Panel */
+    .control-panel {
+      background: rgba(10, 20, 25, 0.8);
+      border: 2px solid rgba(0, 255, 153, 0.5);
+      border-radius: 10px;
+      padding: 25px;
+      width: 400px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(0, 255, 153, 0.2);
+    }
+
+    .panel-title {
+      color: #00ff99;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.4em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00ff99;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .control-label {
+      color: #00ff99;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .control-value {
+      color: #fff;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-shadow: 0 0 5px #00ff99;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      background: #00ff99;
+      border-radius: 50%;
+      animation: statusPulse 2s infinite;
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    .status-text {
+      color: #00ff99;
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Frequencies Display */
+    .freq-display {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 153, 0.3);
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 15px;
+      font-family: monospace;
+      color: #00ff99;
+      font-size: 0.8em;
+      line-height: 1.4;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+
+    /* Scan Lines Effect */
+    .scan-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 153, 0.03) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 1;
+      animation: scanMove 20s linear infinite;
+    }
+
+    @keyframes scanMove {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .radar, .control-panel {
+        width: 300px;
+        height: 300px;
+      }
+      
+      .container {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid-bg"></div>
+  <div class="scan-lines"></div>
+  
+  <div class="container">
+    <div class="radar">
+      <div class="crosshair"></div>
+      <div class="sweep"></div>
+      <div class="center-dot"></div>
+      
+      <!-- Range Rings -->
+      <div class="range-ring"></div>
+      <div class="range-ring"></div>
+      <div class="range-ring"></div>
+      
+      <!-- Blips (Radar Contacts) -->
+      <div class="blip" style="top: 30%; left: 40%;"></div>
+      <div class="blip" style="top: 60%; left: 70%;"></div>
+      <div class="blip" style="top: 45%; left: 20%;"></div>
+      <div class="blip" style="top: 75%; left: 50%;"></div>
+    </div>
+
+    <div class="control-panel">
+      <div class="panel-title">Radar Control System</div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <div class="control-label">Scan Radius</div>
+          <div class="control-value">12.5 km</div>
+        </div>
+        
+        <div class="control-group">
+          <div class="control-label">Frequency</div>
+          <div class="control-value">2.8 GHz</div>
+        </div>
+        
+        <div class="control-group">
+          <div class="control-label">Contacts</div>
+          <div class="control-value">04</div>
+        </div>
+        
+        <div class="control-group">
+          <div class="control-label">Power</div>
+          <div class="control-value">85%</div>
+        </div>
+      </div>
+      
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <div class="status-text">SYSTEM: ACTIVE | SCANNING...</div>
+      </div>
+      
+      <div class="freq-display">
+        <div>> FREQ_BAND: X-BAND</div>
+        <div>> PRF: 1500 Hz</div>
+        <div>> RANGE_RES: 25 m</div>
+        <div>> AZIMUTH: 360°</div>
+        <div>> ELEVATION: 45°</div>
+        <div>> NOISE_FLOOR: -120 dBm</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dynamic blip generation
+    const radar = document.querySelector('.radar');
+    const contactsDisplay = document.querySelector('.control-value:nth-child(3)');
+    
+    // Generate random blips
+    function generateBlip() {
+      const blip = document.createElement('div');
+      blip.className = 'blip';
+      
+      // Random position within radar
+      const radius = 180; // Radar radius minus blip size
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = Math.random() * radius * 0.8;
+      
+      const x = 50 + (distance * Math.cos(angle)) / 4;
+      const y = 50 + (distance * Math.sin(angle)) / 4;
+      
+      blip.style.left = `${x}%`;
+      blip.style.top = `${y}%`;
+      
+      // Random size and animation delay
+      const size = 8 + Math.random() * 8;
+      blip.style.width = `${size}px`;
+      blip.style.height = `${size}px`;
+      blip.style.animationDelay = `${Math.random() * 2}s`;
+      
+      // Random color variation
+      const hue = 330 + Math.random() * 30; // Pink to red range
+      blip.style.background = `radial-gradient(circle, hsl(${hue}, 100%, 60%) 30%, hsla(${hue}, 100%, 60%, 0.5) 70%)`;
+      
+      radar.appendChild(blip);
+      
+      // Remove blip after random time
+      setTimeout(() => {
+        if (blip.parentNode) {
+          blip.remove();
+          updateContacts();
+        }
+      }, 3000 + Math.random() * 7000);
+      
+      updateContacts();
+    }
+    
+    // Update contacts count
+    function updateContacts() {
+      const blips = document.querySelectorAll('.blip');
+      contactsDisplay.textContent = blips.length.toString().padStart(2, '0');
+    }
+    
+    // Generate initial blips
+    for (let i = 0; i < 4; i++) {
+      setTimeout(generateBlip, i * 1000);
+    }
+    
+    // Generate new blips periodically
+    setInterval(() => {
+      if (Math.random() > 0.7) { // 30% chance
+        generateBlip();
+      }
+    }, 2000);
+    
+    // Dynamic sweep speed based on mouse position
+    let sweep = document.querySelector('.sweep');
+    document.addEventListener('mousemove', (e) => {
+      const speed = 1 + (e.clientX / window.innerWidth) * 2;
+      sweep.style.animationDuration = `${4 / speed}s`;
+    });
+    
+    // Power fluctuation effect
+    const powerDisplay = document.querySelector('.control-value:nth-child(4)');
+    setInterval(() => {
+      const basePower = 85;
+      const fluctuation = Math.sin(Date.now() / 5000) * 5;
+      const currentPower = Math.round(basePower + fluctuation);
+      powerDisplay.textContent = `${currentPower}%`;
+      
+      // Change color based on power level
+      if (currentPower < 80) {
+        powerDisplay.style.color = '#ff3366';
+      } else if (currentPower > 90) {
+        powerDisplay.style.color = '#00ff99';
+      } else {
+        powerDisplay.style.color = '#fff';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

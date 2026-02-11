@@ -1,0 +1,932 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ugo Chime | Full-Stack Developer & Digital Artist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --text-secondary: #444444;
+            --gray-light: #f8f8f8;
+            --gray-med: #e8e8e8;
+            --gray-dark: #d1d1d1;
+            --accent: #111111;
+            --accent-light: #333333;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --border-radius: 16px;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.7; 
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 0 2.5rem; 
+        }
+
+        /* Navigation with enhanced styling */
+        nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 2.5rem 0; 
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin-bottom: 1rem;
+        }
+        
+        .logo { 
+            font-weight: 900; 
+            font-size: 1.8rem; 
+            text-decoration: none; 
+            color: var(--text);
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .logo:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links { display: flex; align-items: center; }
+        
+        .nav-links a { 
+            margin-left: 2.5rem; 
+            text-decoration: none; 
+            color: var(--text-secondary); 
+            font-size: 0.95rem; 
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--text);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .btn-sign { 
+            border: 2px solid var(--accent); 
+            padding: 0.75rem 2rem; 
+            border-radius: 50px; 
+            font-weight: 600;
+            background-color: var(--accent);
+            color: white;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn-sign:hover {
+            background-color: transparent;
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section with animation */
+        .hero { 
+            padding: 6rem 0; 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr; 
+            align-items: start; 
+            gap: 3rem;
+            position: relative;
+        }
+        
+        .hero-left {
+            position: relative;
+        }
+        
+        .hero-title { 
+            font-size: clamp(4.5rem, 11vw, 9rem); 
+            line-height: 0.88; 
+            font-weight: 900; 
+            letter-spacing: -5px;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+        }
+        
+        .hero-title span:nth-child(1) { animation-delay: 0.1s; }
+        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
+        .hero-title span:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-top: 2rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .hero-right { 
+            text-align: right; 
+            position: relative;
+        }
+        
+        .hero-image-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-image { 
+            width: 100%; 
+            max-width: 480px; 
+            border-radius: 24px; 
+            filter: grayscale(15%) contrast(1.05);
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .hero-image:hover {
+            filter: grayscale(0%) contrast(1.1);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .hero-image-container::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--gray-dark);
+            border-radius: 24px;
+            z-index: -1;
+        }
+        
+        .hero-sub { 
+            margin-top: 2rem; 
+            font-size: 1rem; 
+            color: var(--text-secondary); 
+            max-width: 280px; 
+            margin-left: auto;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        /* Stack Bar with hover effects */
+        .stack-bar { 
+            background: var(--gray-light); 
+            padding: 3rem 0; 
+            margin: 6rem 0; 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .stack-item { 
+            font-weight: 700; 
+            font-size: 1.3rem; 
+            color: var(--text-secondary); 
+            text-transform: lowercase;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            transition: var(--transition);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stack-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s;
+        }
+        
+        .stack-item:hover::before {
+            left: 100%;
+        }
+        
+        .stack-item:hover {
+            color: var(--text);
+            background-color: white;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .stack-item i { 
+            font-size: 1.6rem; 
+            transition: var(--transition);
+        }
+        
+        .stack-item:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Section Headers with decorative elements */
+        .section-header {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-tag { 
+            background: var(--gray-light); 
+            padding: 8px 18px; 
+            border-radius: 50px; 
+            font-size: 0.75rem; 
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--gray-med);
+        }
+        
+        .section-title { 
+            font-size: 3.2rem; 
+            margin: 1rem 0; 
+            font-weight: 800; 
+            max-width: 600px;
+            line-height: 1.1;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 120px;
+            height: 8px;
+            background-color: var(--gray-light);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        /* Experience Rows with enhanced interactions */
+        .exp-section {
+            padding: 6rem 0;
+        }
+        
+        .exp-row { 
+            display: grid; 
+            grid-template-columns: 2fr 1fr; 
+            padding: 2.5rem 2rem; 
+            border-bottom: 1px solid var(--gray-med);
+            transition: var(--transition);
+            position: relative;
+            border-radius: 12px;
+            margin: 0.5rem 0;
+        }
+        
+        .exp-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background-color: var(--accent);
+            border-radius: 4px;
+            transition: height 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .exp-row:hover::before {
+            height: 100%;
+        }
+        
+        .exp-row:hover { 
+            background: var(--gray-light); 
+            transform: translateX(10px);
+            box-shadow: var(--shadow);
+        }
+        
+        .exp-role { 
+            font-weight: 800; 
+            font-size: 1.4rem; 
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .exp-desc { 
+            color: var(--text-secondary); 
+            font-size: 1rem; 
+            line-height: 1.7;
+            max-width: 90%;
+        }
+        
+        .exp-date { 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            text-align: right;
+            color: var(--accent-light);
+            align-self: center;
+        }
+        
+        .exp-date span {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Portfolio Grid with advanced card effects */
+        .portfolio-section {
+            padding: 6rem 0;
+        }
+        
+        .portfolio-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); 
+            gap: 2.5rem; 
+            margin-top: 4rem;
+        }
+        
+        .port-card { 
+            border-radius: var(--border-radius); 
+            overflow: hidden; 
+            background: white; 
+            position: relative;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-med);
+        }
+        
+        .port-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .port-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.7));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .port-card:hover::after {
+            opacity: 1;
+        }
+        
+        .port-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .port-card img { 
+            width: 100%; 
+            height: 320px; 
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .port-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .port-info { 
+            padding: 2rem; 
+            position: relative;
+            z-index: 2;
+            background-color: white;
+        }
+        
+        .port-info h3 { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .port-info p { 
+            color: var(--text-secondary); 
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .port-tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .port-tag {
+            background: var(--gray-light);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Footer with enhanced design */
+        footer { 
+            background: #0a0a0a; 
+            color: white; 
+            padding: 7rem 0 3rem 0; 
+            margin-top: 8rem; 
+            border-radius: 50px 50px 0 0; 
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #333, #555, #333);
+            border-radius: 50px 50px 0 0;
+        }
+        
+        .footer-cta { 
+            font-size: 5.5rem; 
+            font-weight: 900; 
+            line-height: 1; 
+            margin-bottom: 5rem;
+            letter-spacing: -2px;
+        }
+        
+        .footer-cta span {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .footer-cta span::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: #333;
+            z-index: -1;
+        }
+        
+        .footer-bottom { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 3rem;
+            border-top: 1px solid #222; 
+            padding-top: 3rem; 
+            font-size: 0.9rem; 
+            color: #aaa;
+        }
+        
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .footer-col p {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            color: #aaa;
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #222;
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        /* Additional decorative elements */
+        .floating-shape {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: var(--gray-light);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(60px);
+        }
+        
+        .shape-1 {
+            top: 10%;
+            right: 5%;
+        }
+        
+        .shape-2 {
+            bottom: 20%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-title {
+                letter-spacing: -3px;
+            }
+            
+            .footer-cta {
+                font-size: 4.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .hero { 
+                grid-template-columns: 1fr; 
+                padding: 4rem 0;
+            }
+            
+            .hero-right { 
+                text-align: left; 
+                order: -1;
+            }
+            
+            .hero-sub { 
+                margin-left: 0; 
+                max-width: 100%;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .exp-row { 
+                grid-template-columns: 1fr; 
+                gap: 1rem;
+            }
+            
+            .exp-date { 
+                text-align: left; 
+                margin-top: 1rem;
+                font-size: 1.5rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-cta { 
+                font-size: 3.5rem; 
+            }
+            
+            .footer-bottom {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            nav {
+                padding: 1.5rem 0;
+            }
+            
+            .nav-links a {
+                margin-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 3.5rem;
+                letter-spacing: -2px;
+            }
+            
+            .footer-cta {
+                font-size: 2.8rem;
+            }
+            
+            .btn-sign {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background shapes -->
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">Gunroar.</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Work</a>
+                <a href="#contact" class="btn-sign">Hire Me</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-left">
+                <h1 class="hero-title">
+                    <span>Backend</span><br>
+                    <span>Developer</span><br>
+                    <span>&</span><br>
+                    <span>Artist</span>
+                </h1>
+                <p class="hero-subtitle">Creating immersive digital experiences that blend technical precision with artistic vision. Specializing in backend systems and interactive game development.</p>
+            </div>
+            <div class="hero-right">
+                <div class="hero-image-container">
+                    <img src="ugochime.png" alt="Ugo Chime" class="hero-image">
+                </div>
+                <p class="hero-sub">Hi, I'm Ugo, a developer creating interactive digital experiences and indie games. I bridge the gap between complex systems and engaging user experiences.</p>
+            </div>
+        </section>
+    </div>
+
+    <div class="stack-bar">
+        <div class="stack-item"><i class="fab fa-java"></i> Java</div>
+        <div class="stack-item"><i class="fab fa-python"></i> Python</div>
+        <div class="stack-item"><i class="fas fa-code"></i> Lua</div>
+        <div class="stack-item"><i class="fab fa-js"></i> JavaScript</div>
+        <div class="stack-item"><i class="fas fa-cogs"></i> C++</div>
+        <div class="stack-item"><i class="fas fa-gamepad"></i> Godot</div>
+        <div class="stack-item"><i class="fas fa-database"></i> SQL</div>
+        <div class="stack-item"><i class="fab fa-git-alt"></i> Git</div>
+    </div>
+
+    <div class="container">
+        <section id="about" class="exp-section">
+            <div class="section-header">
+                <span class="section-tag">Experience & Expertise</span>
+                <h2 class="section-title">A journey of creative growth</h2>
+            </div>
+            
+            <div class="exp-row">
+                <div>
+                    <div class="exp-role">Backend & Game Developer</div>
+                    <div class="exp-desc">Specializing in 2D game creation and software innovation. Building scalable backend systems with Java and Python while creating engaging gameplay mechanics in Godot and custom engines.</div>
+                </div>
+                <div class="exp-date">2021 — NOW<span>Current Focus</span></div>
+            </div>
+
+            <div class="exp-row">
+                <div>
+                    <div class="exp-role">Digital Artist & Illustrator</div>
+                    <div class="exp-desc">Creating complex comic illustrations and character designs. Combining traditional art principles with digital tools to produce compelling visual narratives and game assets.</div>
+                </div>
+                <div class="exp-date">2018 — 2021<span>Foundational Years</span></div>
+            </div>
+
+            <div class="exp-row">
+                <div>
+                    <div class="exp-role">Systems Architecture</div>
+                    <div class="exp-desc">Designing robust backend architectures for web applications and games. Implementing efficient data structures, APIs, and real-time systems to support complex digital experiences.</div>
+                </div>
+                <div class="exp-date">2020 — NOW<span>Technical Development</span></div>
+            </div>
+        </section>
+
+        <section id="projects" class="portfolio-section">
+            <div class="section-header">
+                <span class="section-tag">Selected Works</span>
+                <h2 class="section-title">Explore creative solutions</h2>
+            </div>
+            
+            <div class="portfolio-grid" id="portfolio-container">
+                <div class="port-card">
+                    <div class="port-image">
+                        <img src="assets/complex-art.jpg" alt="Frog Samurai Art">
+                    </div>
+                    <div class="port-info">
+                        <h3>Frog Samurai</h3>
+                        <p>Full-blown comic page illustration showcasing narrative storytelling through dynamic composition and character expression.</p>
+                        <div class="port-tags">
+                            <span class="port-tag">Digital Art</span>
+                            <span class="port-tag">Comics</span>
+                            <span class="port-tag">Character Design</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="port-card">
+                    <div class="port-image">
+                        <img src="assets/custom.png" alt="Dust Game Project">
+                    </div>
+                    <div class="port-info">
+                        <h3>Dust: Battle Beneath</h3>
+                        <p>Independent game project featuring custom engine development, procedural generation, and multiplayer backend systems.</p>
+                        <div class="port-tags">
+                            <span class="port-tag">Game Dev</span>
+                            <span class="port-tag">C++</span>
+                            <span class="port-tag">Networking</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="port-card">
+                    <div class="port-image">
+                        <img src="assets/api-architecture.jpg" alt="API Architecture">
+                    </div>
+                    <div class="port-info">
+                        <h3>Scalable API Framework</h3>
+                        <p>High-performance backend system with microservices architecture, real-time data processing, and automated scaling.</p>
+                        <div class="port-tags">
+                            <span class="port-tag">Backend</span>
+                            <span class="port-tag">Java</span>
+                            <span class="port-tag">Microservices</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-cta">
+                Let's Build<br>
+                <span>Something Amazing</span>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-col">
+                    <h4>Location</h4>
+                    <p><strong>Address</strong></p>
+                    <p>Ihiagwa, Imo, Nigeria</p>
+                    <p>Remote collaborations welcome worldwide</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p><strong>Email</strong></p>
+                    <p>gunroarcannon@gmail.com</p>
+                    <p>Response within 24 hours</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-artstation"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <p>Backend Development</p>
+                    <p>Game Development</p>
+                    <p>System Architecture</p>
+                    <p>Digital Art & Illustration</p>
+                </div>
+                
+                <div class="copyright">
+                    <p>© 2026 Ugo Chime. All creative works and code protected.</p>
+                    <p>Designed and developed with precision and artistry.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation trigger
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all experience rows and portfolio cards
+            document.querySelectorAll('.exp-row, .port-card').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Logo animation on click
+            document.querySelector('.logo').addEventListener('click', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 200);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
